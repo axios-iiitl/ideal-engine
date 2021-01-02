@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Screens/loginScreen.dart';
+import 'package:ideal_engine/loginScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,9 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      color: Colors.black,
       home: LoginScreen(),
     );
   }

@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:ideal_engine/Models/login_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:ideal_engine/Frypan/Models/login_model.dart';
+import 'Frypan/Screens/Carousel/carousel_page.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile']);
 
@@ -44,12 +45,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-      ),
-      body: Center(
-        child: _profile(),
+    return MaterialApp(
+      home: Container(
+        decoration: new BoxDecoration(
+            color: Colors.black,
+            image: new DecorationImage(
+              image: new AssetImage(
+                  "assets/images/background/login_background.png"),
+              fit: BoxFit.cover,
+            )),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: new AppBar(
+            backgroundColor: Colors.black,
+            title: Text("Login Page"),
+          ),
+          body: Center(
+            child: _profile(),
+          ),
+        ),
       ),
     );
   }
@@ -59,13 +73,16 @@ class _LoginScreenState extends State<LoginScreen> {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(_currentUser.displayName),
-          SizedBox(
-            height: 60,
+          Text(
+            _currentUser.displayName,
+            style: TextStyle(color: Colors.white),
           ),
-          Text(_currentUser.email),
           SizedBox(
-            height: 60,
+            height: MediaQuery.of(context).size.height * 0.1,
+          ),
+          Text(_currentUser.email, style: TextStyle(color: Colors.white)),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
           ),
           FloatingActionButton.extended(
             label: Text("Let's Go"),
@@ -75,12 +92,18 @@ class _LoginScreenState extends State<LoginScreen> {
               setState(() {
                 _login = login;
               });
+              // add condition here -> _login.token != null
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CarouselPage()),
+              );
             },
           ),
           SizedBox(
-            height: 30,
+            height: MediaQuery.of(context).size.height * 0.05,
           ),
           RaisedButton(
+            elevation: 100.0,
             onPressed: _signOut,
             child: Text('SIGN OUT'),
           )
@@ -94,27 +117,9 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             FloatingActionButton.extended(
                 hoverColor: Colors.white,
-                backgroundColor: Color(0xff4285F4),
-                icon: Image.asset(
-                  "assets/images/google_logo2.png",
-                  height: 30,
-                  width: 30,
-                ),
-                onPressed: () async {
-                  _signIn();
-                },
-                label: Text(
-                  "Sign Up with Google",
-                  style: TextStyle(color: Colors.white),
-                )),
-            SizedBox(
-              height: 50,
-            ),
-            FloatingActionButton.extended(
-                hoverColor: Colors.white,
                 backgroundColor: Colors.white,
                 icon: Image.asset(
-                  "assets/images/google_logo.png",
+                  "assets/images/logos/google_colored.png",
                   height: 30,
                   width: 30,
                 ),
