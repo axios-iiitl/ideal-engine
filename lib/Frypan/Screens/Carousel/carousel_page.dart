@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ideal_engine/Frypan/Screens/mainScreen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class CarouselPage extends StatefulWidget {
@@ -19,7 +20,13 @@ class _CarouselPageState extends State<CarouselPage> {
       appBar: new AppBar(
         backgroundColor: Colors.black,
         title: new Align(
-          child: new Text("Skip"),
+          child: GestureDetector(
+            child: new Text("Skip"),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MainScreen()),
+            ),
+          ),
           alignment: Alignment(1.05, 0.5),
         ),
         actions: <Widget>[
@@ -99,7 +106,10 @@ class _CarouselPageState extends State<CarouselPage> {
                     "Next",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MainScreen()),
+                  ),
                 ),
               ),
               SizedBox(

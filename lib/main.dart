@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_engine/Frypan/Screens/mainScreen.dart';
 import 'package:ideal_engine/loginScreen.dart';
 
 void main() {
