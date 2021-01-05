@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'New_Post/new_post.dart';
+import 'anonymous.dart';
+import 'news_feed.dart';
+import 'profile.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key key}) : super(key: key);
@@ -9,32 +13,35 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  PageController _pageController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Anonymous',
-    ),
-    Text(
-      'Index 1: New Post',
-    ),
-    Text(
-      'Index 2: News Feed',
-    ),
-    Text(
-      'Index 3: Profile',
-    ),
-  ];
+  List<Widget> tabPages = [Anonymous(), NewPost(), NewsFeed(), Profile()];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+    this._pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _selectedIndex);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       key: _scaffoldKey,
       drawer: Drawer(
         child: ListView(
@@ -108,8 +115,10 @@ class _MainScreenState extends State<MainScreen> {
           )
         ],
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: PageView(
+        children: tabPages,
+        onPageChanged: onPageChanged,
+        controller: _pageController,
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
@@ -151,5 +160,16 @@ class _MainScreenState extends State<MainScreen> {
         onTap: _onItemTapped,
       ),
     );
+  }
+
+  void onPageChanged(int page) {
+    setState(() {
+      this._selectedIndex = page;
+    });
+  }
+
+  void onTabTapped(int index) {
+    this._pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
   }
 }
