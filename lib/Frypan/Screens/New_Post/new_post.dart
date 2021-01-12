@@ -19,6 +19,8 @@ class _NewPostState extends State<NewPost> {
     final pickImage = await picker.getImage(source: ImageSource.gallery);
     if (pickImage != null) {
       _image = File(pickImage.path);
+      print("done");
+      showImageDialog(context, _image);
     } else {
       print("not");
     }
@@ -29,7 +31,7 @@ class _NewPostState extends State<NewPost> {
   void initState() {
     super.initState();
     setState(() {
-      selectedRadio = 0;
+      selectedRadio = 1;
       _nameController = TextEditingController();
     });
   }
@@ -131,7 +133,7 @@ class _NewPostState extends State<NewPost> {
               children: [
                 RaisedButton.icon(
                     color: Colors.black,
-                    onPressed: () {
+                    onPressed: () async {
                       imageIsSelected();
                       getImage();
                     },
@@ -418,4 +420,63 @@ class _OptionsTextFieldsState extends State<OptionsTextFields> {
       },
     );
   }
+}
+
+showImageDialog(context, img) {
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: Material(
+            type: MaterialType.transparency,
+            child: SingleChildScrollView(
+              child: Container(
+                  padding: EdgeInsets.all(15.0),
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: Column(
+                    children: [
+                      Container(
+                        child: ClipRRect(
+                          child: Image.file(
+                            img,
+                            height: MediaQuery.of(context).size.height * 0.35,
+                            fit: BoxFit.fitHeight,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          FloatingActionButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            backgroundColor: Colors.red,
+                            child: Icon(Icons.clear),
+                          ),
+                          FloatingActionButton(
+                            onPressed: () {
+                              print(img);
+                              Navigator.of(context).pop();
+                            },
+                            backgroundColor: Colors.green,
+                            child: Icon(
+                              Icons.done,
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  )),
+            ),
+          ),
+        );
+      });
 }
