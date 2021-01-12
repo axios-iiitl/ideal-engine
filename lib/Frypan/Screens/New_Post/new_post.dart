@@ -9,6 +9,9 @@ class NewPost extends StatefulWidget {
 }
 
 class _NewPostState extends State<NewPost> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController _nameController;
+  static List<String> optionsList = [null];
   bool imageSelected = false;
   File _image;
   final picker = ImagePicker();
@@ -27,6 +30,7 @@ class _NewPostState extends State<NewPost> {
     super.initState();
     setState(() {
       selectedRadio = 0;
+      _nameController = TextEditingController();
     });
   }
 
@@ -40,6 +44,12 @@ class _NewPostState extends State<NewPost> {
     setState(() {
       imageSelected = !imageSelected;
     });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
   }
 
   @override
@@ -166,12 +176,9 @@ class _NewPostState extends State<NewPost> {
           Container(
             alignment: Alignment.center,
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
               child: FloatingActionButton.extended(
                   elevation: 10,
-                  hoverColor: Colors.pink,
-                  splashColor: Colors.red,
-                  focusColor: Colors.deepOrange,
                   label: Text(
                     "Post",
                     style: TextStyle(color: Colors.white),
@@ -239,28 +246,109 @@ class _NewPostState extends State<NewPost> {
                   hoverColor: Colors.white),
             ),
           ),
-          SizedBox(
-            height: 50,
-          ),
           Container(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: FloatingActionButton.extended(
-                  elevation: 10,
-                  hoverColor: Colors.pink,
-                  splashColor: Colors.red,
-                  focusColor: Colors.deepOrange,
-                  label: Text(
-                    "Post",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: null),
-            ),
+            child: _buildOptions(),
+          ),
+          SizedBox(
+            height: 20,
           ),
         ],
       );
     }
+  }
+
+  @override
+  Widget _buildOptions() {
+    return Form(
+      key: _formKey,
+      child: Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                child: Text(
+                  "Options",
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              ..._getOptions(),
+              Padding(
+                padding: const EdgeInsets.all(0),
+                child: TextFormField(
+                  controller: _nameController,
+                  validator: (v) {
+                    if (v.trim().isEmpty) return 'Please enter something';
+                    return null;
+                  },
+                ),
+              ),
+              Center(
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      _formKey.currentState.save();
+                    }
+                  },
+                  label: Text('Post'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _getOptions() {
+    List<Widget> optionsTextFields = [];
+    for (int i = 0; i < optionsList.length; i++) {
+      optionsTextFields.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Row(
+          children: [
+            Expanded(child: OptionsTextFields(i)),
+            SizedBox(
+              width: 16,
+            ),
+            // we need add button at last friends row
+            _addRemoveButton(i == optionsList.length - 1, i),
+          ],
+        ),
+      ));
+    }
+    return optionsTextFields;
+  }
+
+  Widget _addRemoveButton(bool add, int index) {
+    return InkWell(
+      onTap: () {
+        if (add) {
+          // add new text-fields at the top of all friends textfields
+          optionsList.insert(optionsList.length, null);
+        } else
+          optionsList.removeAt(index);
+        setState(() {});
+      },
+      child: Container(
+        width: 30,
+        height: 30,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Icon(
+          (add) ? Icons.add : Icons.delete,
+          color: (add) ? Colors.green : Colors.red,
+          size: 30.0,
+        ),
+      ),
+    );
   }
 
   @override
@@ -284,6 +372,50 @@ class _NewPostState extends State<NewPost> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class OptionsTextFields extends StatefulWidget {
+  final int index;
+  OptionsTextFields(this.index);
+  @override
+  _OptionsTextFieldsState createState() => _OptionsTextFieldsState();
+}
+
+class _OptionsTextFieldsState extends State<OptionsTextFields> {
+  TextEditingController _nameController;
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _nameController.text = _NewPostState.optionsList[widget.index] ?? '';
+    });
+
+    return TextFormField(
+      controller: _nameController,
+      onChanged: (v) => _NewPostState.optionsList[widget.index] = v,
+      maxLines: 1,
+      decoration: InputDecoration(
+        hintText: 'Enter an option',
+        filled: true,
+        fillColor: Colors.white,
+      ),
+      validator: (v) {
+        if (v.trim().isEmpty) return 'Please enter something';
+        return null;
+      },
     );
   }
 }
