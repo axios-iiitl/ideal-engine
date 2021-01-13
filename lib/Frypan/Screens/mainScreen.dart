@@ -41,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey,
       key: _scaffoldKey,
       drawer: Drawer(
         child: ListView(
@@ -101,19 +101,10 @@ class _MainScreenState extends State<MainScreen> {
           onPressed: () => _scaffoldKey.currentState.openDrawer(),
           icon: Icon(
             Icons.list,
-            size: 35,
+            size: 25,
           ),
         ),
         backgroundColor: Colors.black,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 8, 20, 8),
-            child: Icon(
-              Icons.account_circle,
-              size: 35,
-            ),
-          )
-        ],
       ),
       body: PageView(
         children: tabPages,
@@ -122,36 +113,38 @@ class _MainScreenState extends State<MainScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.lightBlue,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             backgroundColor: Colors.black,
             icon: Icon(
-              MdiIcons.incognitoCircle,
-              color: Colors.white,
+              MdiIcons.incognito,
+              size: 20,
             ),
             label: 'Anonymous',
           ),
           BottomNavigationBarItem(
             backgroundColor: Colors.black,
             icon: Icon(
-              Icons.add_circle,
-              color: Colors.white,
+              Icons.add_circle_outline_outlined,
+              size: 20,
             ),
             label: 'New Post',
           ),
           BottomNavigationBarItem(
             backgroundColor: Colors.black,
             icon: Icon(
-              Icons.article,
-              color: Colors.white,
+              Icons.article_outlined,
+              size: 20,
             ),
             label: 'News Feed',
           ),
           BottomNavigationBarItem(
             backgroundColor: Colors.black,
             icon: Icon(
-              Icons.account_circle,
-              color: Colors.white,
+              Icons.account_circle_outlined,
+              size: 20,
             ),
             label: 'Profile',
           ),

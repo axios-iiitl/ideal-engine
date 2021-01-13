@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_engine/Frypan/Screens/anonymous.dart';
 import 'package:ideal_engine/Frypan/Screens/mainScreen.dart';
 import 'package:ideal_engine/loginScreen.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       color: Colors.black,
-      home: MainScreen(),
+      home: LoginScreen(),
     );
   }
 }

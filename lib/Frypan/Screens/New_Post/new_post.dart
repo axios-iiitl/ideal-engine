@@ -88,7 +88,7 @@ class _NewPostState extends State<NewPost> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(18, 5, 10, 0),
+            padding: const EdgeInsets.fromLTRB(8, 5, 10, 0),
             child: Text(
               "Heading",
               textAlign: TextAlign.start,
@@ -99,12 +99,13 @@ class _NewPostState extends State<NewPost> {
             height: 10,
           ),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(8),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(2)),
             child: TextField(
               minLines: 1,
               maxLines: 2,
               decoration: InputDecoration(
+                  isDense: true,
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
@@ -120,7 +121,7 @@ class _NewPostState extends State<NewPost> {
             height: 20,
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(18, 5, 10, 0),
+            padding: const EdgeInsets.fromLTRB(8, 5, 10, 0),
             child: Text(
               "Content",
               textAlign: TextAlign.start,
@@ -159,8 +160,8 @@ class _NewPostState extends State<NewPost> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(2)),
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(1)),
             child: TextField(
               maxLines: 4,
               decoration: InputDecoration(
@@ -175,18 +176,25 @@ class _NewPostState extends State<NewPost> {
                   hoverColor: Colors.white),
             ),
           ),
-          Container(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-              child: FloatingActionButton.extended(
-                  elevation: 10,
-                  label: Text(
-                    "Post",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: null),
-            ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 10),
+            child: Center(
+                child: InkWell(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                height: 40,
+                width: MediaQuery.of(context).size.width * 0.3,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.blue,
+                ),
+                child: Text(
+                  "Post",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
+              ),
+            )),
           ),
         ],
       );
@@ -222,7 +230,7 @@ class _NewPostState extends State<NewPost> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+            padding: const EdgeInsets.fromLTRB(8, 10, 10, 10),
             child: Text(
               "Poll Question?",
               textAlign: TextAlign.start,
@@ -233,10 +241,13 @@ class _NewPostState extends State<NewPost> {
             height: 10,
           ),
           Container(
+            padding: EdgeInsets.all(5),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(2)),
             child: TextField(
-              maxLines: 1,
+              minLines: 1,
+              maxLines: 2,
               decoration: InputDecoration(
+                  isDense: true,
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
@@ -273,7 +284,7 @@ class _NewPostState extends State<NewPost> {
                 height: 20,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                padding: const EdgeInsets.fromLTRB(8, 10, 10, 10),
                 child: Text(
                   "Options",
                   style: TextStyle(color: Colors.white),
@@ -282,24 +293,30 @@ class _NewPostState extends State<NewPost> {
               ),
               ..._getOptions(),
               Padding(
-                padding: const EdgeInsets.all(0),
-                child: TextFormField(
-                  controller: _nameController,
-                  validator: (v) {
-                    if (v.trim().isEmpty) return 'Please enter something';
-                    return null;
-                  },
-                ),
-              ),
-              Center(
-                child: FloatingActionButton.extended(
-                  onPressed: () {
+                padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                child: Center(
+                    child: InkWell(
+                  onTap: () {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
+                      print("yes");
                     }
                   },
-                  label: Text('Post'),
-                ),
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 6),
+                    height: 40,
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.blue,
+                    ),
+                    child: Text(
+                      "Post",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 15),
+                    ),
+                  ),
+                )),
               ),
             ],
           ),
@@ -312,7 +329,7 @@ class _NewPostState extends State<NewPost> {
     List<Widget> optionsTextFields = [];
     for (int i = 0; i < optionsList.length; i++) {
       optionsTextFields.add(Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
           children: [
             Expanded(child: OptionsTextFields(i)),
@@ -358,19 +375,21 @@ class _NewPostState extends State<NewPost> {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: SizedBox(
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(13),
-              border: Border.all(
-                color: Colors.white,
-                width: 3,
+        child: Center(
+          child: SizedBox(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(13),
+                border: Border.all(
+                  color: Colors.white,
+                  width: 0.3,
+                ),
               ),
+              child: Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 40, 8, 0),
+                  child: _buildChild()),
             ),
-            child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 40, 8, 0),
-                child: _buildChild()),
           ),
         ),
       ),
@@ -410,9 +429,17 @@ class _OptionsTextFieldsState extends State<OptionsTextFields> {
       onChanged: (v) => _NewPostState.optionsList[widget.index] = v,
       maxLines: 1,
       decoration: InputDecoration(
-        hintText: 'Enter an option',
+        isDense: true,
         filled: true,
         fillColor: Colors.white,
+        border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue, width: 3),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        hoverColor: Colors.white,
+        hintText: 'Enter an option',
       ),
       validator: (v) {
         if (v.trim().isEmpty) return 'Please enter something';

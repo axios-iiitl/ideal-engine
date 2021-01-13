@@ -54,7 +54,7 @@ class _CarouselPageState extends State<CarouselPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
+                height: MediaQuery.of(context).size.height * 0.45,
                 child: PageView(
                   allowImplicitScrolling: true,
                   controller: controller,
@@ -66,7 +66,7 @@ class _CarouselPageState extends State<CarouselPage> {
                           borderRadius: BorderRadius.circular(16)),
                       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.5,
+                        height: MediaQuery.of(context).size.height * 0.4,
                         width: MediaQuery.of(context).size.width,
                         color: Colors.black,
                         child: Image.asset(
@@ -77,7 +77,7 @@ class _CarouselPageState extends State<CarouselPage> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Container(
                 child: SmoothPageIndicator(
@@ -91,9 +91,9 @@ class _CarouselPageState extends State<CarouselPage> {
                       activeDotColor: Colors.white),
                 ),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 40),
               Container(
-                width: 290.0,
+                width: MediaQuery.of(context).size.width * 0.7,
                 height: 50.0,
                 decoration: BoxDecoration(
                   color: Color(0xff0433fe),
@@ -111,9 +111,6 @@ class _CarouselPageState extends State<CarouselPage> {
                     MaterialPageRoute(builder: (context) => MainScreen()),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
               ),
               Container(
                 child: Image.asset("assets/images/carousel/car_backg.png"),
