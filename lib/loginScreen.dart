@@ -73,14 +73,21 @@ class _LoginScreenState extends State<LoginScreen> {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            _currentUser.displayName,
-            style: TextStyle(color: Colors.white),
+          Container(
+            color: Colors.blue,
+            child: Text(
+              _currentUser.displayName,
+              style: TextStyle(color: Colors.white),
+            ),
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.1,
           ),
-          Text(_currentUser.email, style: TextStyle(color: Colors.white)),
+          Container(
+            color: Colors.blue,
+            child:
+                Text(_currentUser.email, style: TextStyle(color: Colors.white)),
+          ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.1,
           ),

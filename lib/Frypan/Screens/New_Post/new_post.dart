@@ -72,7 +72,7 @@ class _NewPostState extends State<NewPost> {
               ),
               Text(
                 "Text",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               new Radio(
                 value: 2,
@@ -83,7 +83,7 @@ class _NewPostState extends State<NewPost> {
               ),
               Text(
                 "Poll",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 14),
               ),
             ],
           ),
@@ -92,7 +92,10 @@ class _NewPostState extends State<NewPost> {
             child: Text(
               "Heading",
               textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 15, color: Colors.white),
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white,
+              ),
             ),
           ),
           SizedBox(
@@ -144,7 +147,7 @@ class _NewPostState extends State<NewPost> {
                     ),
                     label: Text(
                       "Add an Image",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: 14),
                     )),
                 RaisedButton.icon(
                     onPressed: null,
@@ -154,7 +157,7 @@ class _NewPostState extends State<NewPost> {
                     ),
                     label: Text(
                       "Text",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: 14),
                     ))
               ],
             ),
@@ -234,7 +237,7 @@ class _NewPostState extends State<NewPost> {
             child: Text(
               "Poll Question?",
               textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 15, color: Colors.white),
+              style: TextStyle(fontSize: 14, color: Colors.white),
             ),
           ),
           SizedBox(

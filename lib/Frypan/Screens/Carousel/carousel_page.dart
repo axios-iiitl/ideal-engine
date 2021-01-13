@@ -21,7 +21,13 @@ class _CarouselPageState extends State<CarouselPage> {
         backgroundColor: Colors.black,
         title: new Align(
           child: GestureDetector(
-            child: new Text("Skip"),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8, 0, 20, 0),
+              child: new Text(
+                "Skip",
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => MainScreen()),
@@ -29,22 +35,6 @@ class _CarouselPageState extends State<CarouselPage> {
           ),
           alignment: Alignment(1.05, 0.5),
         ),
-        actions: <Widget>[
-          Transform.rotate(
-            angle: 7 * pi / 4,
-            child: IconButton(
-              alignment: Alignment.centerLeft,
-              icon: Icon(
-                Icons.redo,
-                color: Color(0xff0433fe),
-                size: 30,
-              ),
-              onPressed: () {
-                // do something
-              },
-            ),
-          )
-        ],
       ),
       backgroundColor: Colors.black,
       body: Directionality(
@@ -93,7 +83,7 @@ class _CarouselPageState extends State<CarouselPage> {
               ),
               SizedBox(height: 40),
               Container(
-                width: MediaQuery.of(context).size.width * 0.7,
+                width: 250,
                 height: 50.0,
                 decoration: BoxDecoration(
                   color: Color(0xff0433fe),
@@ -111,6 +101,9 @@ class _CarouselPageState extends State<CarouselPage> {
                     MaterialPageRoute(builder: (context) => MainScreen()),
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 20,
               ),
               Container(
                 child: Image.asset("assets/images/carousel/car_backg.png"),

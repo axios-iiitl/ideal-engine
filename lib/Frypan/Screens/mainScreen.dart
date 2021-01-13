@@ -54,43 +54,101 @@ class _MainScreenState extends State<MainScreen> {
                 child: Center(
                   child: Text(
                     "Services",
-                    style: TextStyle(color: Colors.white, fontSize: 30),
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
                 decoration: BoxDecoration(color: Colors.black),
               ),
             ),
             ListTile(
-              title: Center(
-                  child: Text(
-                "Frypan",
-                style: TextStyle(fontSize: 17),
-              )),
-              onTap: null,
+              title: Row(
+                children: [
+                  Icon(Icons.chat_bubble_outline),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                    child: Text(
+                      "Frypan",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ],
+              ),
             ),
             ListTile(
-              title: Center(
-                  child: Text(
-                "Hostel Management",
-                style: TextStyle(fontSize: 17),
-              )),
-              onTap: null,
+              title: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                child: Row(
+                  children: [
+                    Icon(MdiIcons.incognito),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                      child: Text(
+                        "Anonymous",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             ListTile(
-              title: Center(
-                  child: Text(
-                "Sports",
-                style: TextStyle(fontSize: 17),
-              )),
-              onTap: null,
+              title: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                child: Row(
+                  children: [
+                    Icon(MdiIcons.accountGroupOutline),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                      child: Text(
+                        "News Feed",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             ListTile(
-              title: Center(
-                  child: Text(
-                "Attendance",
-                style: TextStyle(fontSize: 17),
-              )),
-              onTap: null,
+              title: Row(
+                children: [
+                  Icon(MdiIcons.officeBuildingMarkerOutline),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                    child: Text(
+                      "Hostel Management",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.sports_handball_outlined),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                    child: Text(
+                      "Sports",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(MdiIcons.hand),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                    child: Text(
+                      "Attendance",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
