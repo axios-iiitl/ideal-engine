@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ideal_engine/Frypan/Screens/mainScreen.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import 'New_Post/newpost.dart';
 
 class NewsFeed extends StatefulWidget {
   @override
@@ -12,6 +15,7 @@ class NewsFeed extends StatefulWidget {
 class _NewsFeedState extends State<NewsFeed> {
   Map data;
   List userData;
+  bool createnewpost = false;
 
   Future getData() async {
     http.Response response =
@@ -32,6 +36,25 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FloatingActionButton(
+          backgroundColor: Colors.yellow,
+          child: Icon(
+            Icons.add,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                    contentPadding: EdgeInsets.zero,
+                    title:
+                        Text('Create New Post', style: TextStyle(fontSize: 17)),
+                    content: NewPost()));
+          },
+        ),
+      ),
       backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -99,9 +122,20 @@ class _NewsFeedState extends State<NewsFeed> {
                               Align(
                                   alignment: Alignment.centerRight,
                                   child: Icon(
-                                    MdiIcons.chat,
+                                    Icons.share_outlined,
                                     color: Colors.white,
                                     size: 30,
+                                  )),
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                                    child: Icon(
+                                      MdiIcons.chat,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
                                   ))
                             ],
                           ),

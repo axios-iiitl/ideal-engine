@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:ideal_engine/Frypan/Models/login_model.dart';
+import 'package:ideal_engine/credentials.dart';
 import 'Frypan/Screens/Carousel/carousel_page.dart';
 
-GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile']);
+GoogleSignIn _googleSignIn = GoogleSignIn(clientId: id ,scopes: ['profile']);
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -31,7 +32,7 @@ Future<LoginRequest> createUser(
 class _LoginScreenState extends State<LoginScreen> {
   LoginRequest _login;
   GoogleSignInAccount _currentUser;
-
+  GoogleSignInAuthentication auth;
   @override
   void initState() {
     super.initState();
@@ -70,51 +71,57 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _profile() {
     if (_currentUser != null) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            color: Colors.blue,
-            child: Text(
-              _currentUser.displayName,
-              style: TextStyle(color: Colors.white),
+      return Container(
+        color: Colors.white,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              child: Text(
+                _currentUser.displayName,
+                style: TextStyle(color: Colors.black),
+              ),
             ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-          ),
-          Container(
-            color: Colors.blue,
-            child:
-                Text(_currentUser.email, style: TextStyle(color: Colors.white)),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-          ),
-          FloatingActionButton.extended(
-            label: Text("Let's Go"),
-            onPressed: () async {
-              final LoginRequest login = await createUser(_currentUser.email,
-                  _currentUser.id, _currentUser.displayName);
-              setState(() {
-                _login = login;
-              });
-              // add condition here -> _login.token != null
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CarouselPage()),
-              );
-            },
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.05,
-          ),
-          RaisedButton(
-            elevation: 100.0,
-            onPressed: _signOut,
-            child: Text('SIGN OUT'),
-          )
-        ],
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+            Container(
+              child: Text(
+                _currentUser.email,
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+            FloatingActionButton.extended(
+              label: Text("Let's Go"),
+              onPressed: () async {
+                final LoginRequest login = await createUser(_currentUser.email,
+                    _currentUser.id, _currentUser.displayName);
+                print(_currentUser);
+                setState(() {
+                  _login = login;
+                });
+                // add condition here -> _login.token != null
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CarouselPage()),
+                );
+              },
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.05,
+            ),
+            RaisedButton(
+              elevation: 100.0,
+              onPressed: _signOut,
+              child: Text('SIGN OUT'),
+            )
+          ],
+        ),
       );
     } else {
       return Container(
@@ -146,6 +153,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _signIn() async {
     try {
       await _googleSignIn.signIn();
+      GoogleSignInAccount user = await _googleSignIn.signIn();
+      auth = await user.authentication;
+      print("{");
+      print(auth.idToken);
+      print("}{");
+      print(auth.accessToken);
+      print("}");
     } catch (error) {
       print(error);
     }

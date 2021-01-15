@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'New_Post/new_post.dart';
+import 'New_Post/newpost.dart';
 import 'anonymous.dart';
 import 'news_feed.dart';
 import 'profile.dart';
 
 class MainScreen extends StatefulWidget {
-  MainScreen({Key key}) : super(key: key);
+  final bool anynewpost;
+  const MainScreen({Key key, this.anynewpost}) : super(key: key);
 
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
+  bool anynewpost = false;
+  _MainScreenState({this.anynewpost});
   PageController _pageController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
   List<Widget> tabPages = [Anonymous(), NewPost(), NewsFeed(), Profile()];
 
-  void _onItemTapped(int index) {
+  void onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -29,6 +32,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+
     _pageController = PageController(initialPage: _selectedIndex);
   }
 
@@ -44,117 +48,146 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: Colors.grey,
       key: _scaffoldKey,
       drawer: Drawer(
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.15,
-              child: DrawerHeader(
-                child: Center(
-                  child: Text(
-                    "Services",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                ),
-                decoration: BoxDecoration(color: Colors.black),
-              ),
-            ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.chat_bubble_outline),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+        child: Theme(
+          data: Theme.of(context).copyWith(
+              accentColor: Colors.black, unselectedWidgetColor: Colors.black),
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.15,
+                child: DrawerHeader(
+                  child: Center(
                     child: Text(
-                      "Frypan",
-                      style: TextStyle(fontSize: 15),
+                      "Services",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                  decoration: BoxDecoration(color: Colors.black),
+                ),
+              ),
+              ExpansionTile(
+                children: [
+                  ListTile(
+                    title: Padding(
+                      padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                      child: GestureDetector(
+                        onTap: () {
+                          onItemTapped(0);
+                        },
+                        child: Row(
+                          children: [
+                            Icon(MdiIcons.accountGroupOutline),
+                            Padding(
+                                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                child: Text(
+                                  "Anonymous",
+                                  style: TextStyle(fontSize: 15),
+                                )),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    title: Padding(
+                      padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                      child: GestureDetector(
+                        onTap: () {
+                          onItemTapped(2);
+                        },
+                        child: Row(
+                          children: [
+                            Icon(MdiIcons.accountGroupOutline),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                              child: Text(
+                                "News Feed",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ],
-              ),
-            ),
-            ListTile(
-              title: Padding(
-                padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-                child: Row(
+                title: Row(
                   children: [
-                    Icon(MdiIcons.incognito),
+                    Icon(Icons.chat_bubble_outline),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
                       child: Text(
-                        "Anonymous",
+                        "Frypan",
                         style: TextStyle(fontSize: 15),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            ListTile(
-              title: Padding(
-                padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-                child: Row(
+              ListTile(
+                title: Row(
                   children: [
-                    Icon(MdiIcons.accountGroupOutline),
+                    Icon(MdiIcons.officeBuildingMarkerOutline),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
                       child: Text(
-                        "News Feed",
+                        "Hostel Management",
                         style: TextStyle(fontSize: 15),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(MdiIcons.officeBuildingMarkerOutline),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                    child: Text(
-                      "Hostel Management",
-                      style: TextStyle(fontSize: 15),
+              ListTile(
+                title: Row(
+                  children: [
+                    Icon(Icons.sports_handball_outlined),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                      child: Text(
+                        "Sports",
+                        style: TextStyle(fontSize: 15),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.sports_handball_outlined),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                    child: Text(
-                      "Sports",
-                      style: TextStyle(fontSize: 15),
+              ListTile(
+                title: Row(
+                  children: [
+                    Icon(MdiIcons.hand),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                      child: Text(
+                        "Attendance",
+                        style: TextStyle(fontSize: 15),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(MdiIcons.hand),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                    child: Text(
-                      "Attendance",
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       appBar: AppBar(
-        title: const Text(''),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              onItemTapped(3);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Icon(
+                Icons.account_circle_outlined,
+                size: 25,
+              ),
+            ),
+          )
+        ],
+        title: const Text('Axios App'),
         leading: new IconButton(
           onPressed: () => _scaffoldKey.currentState.openDrawer(),
           icon: Icon(
@@ -169,7 +202,7 @@ class _MainScreenState extends State<MainScreen> {
         onPageChanged: onPageChanged,
         controller: _pageController,
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      /* bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         unselectedItemColor: Colors.white,
         selectedItemColor: Colors.lightBlue,
@@ -209,7 +242,7 @@ class _MainScreenState extends State<MainScreen> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-      ),
+      ), */
     );
   }
 
@@ -220,6 +253,9 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void onTabTapped(int index) {
+    if (anynewpost == true)
+      this._pageController.animateToPage(1,
+          duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
     this._pageController.animateToPage(index,
         duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
   }

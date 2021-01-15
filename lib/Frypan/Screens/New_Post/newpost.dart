@@ -1,7 +1,7 @@
-import 'dart:io';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'dart:async';
 
 class NewPost extends StatefulWidget {
   @override
@@ -26,35 +26,6 @@ class _NewPostState extends State<NewPost> {
     }
   }
 
-  int selectedRadio;
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      selectedRadio = 1;
-      _nameController = TextEditingController();
-    });
-  }
-
-  setSelectedRadio(int value) {
-    setState(() {
-      selectedRadio = value;
-    });
-  }
-
-  imageIsSelected() {
-    setState(() {
-      imageSelected = !imageSelected;
-    });
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget _buildChild() {
     if (selectedRadio == 1) {
       return Column(
@@ -72,7 +43,7 @@ class _NewPostState extends State<NewPost> {
               ),
               Text(
                 "Text",
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: TextStyle(color: Colors.black, fontSize: 14),
               ),
               new Radio(
                 value: 2,
@@ -83,18 +54,17 @@ class _NewPostState extends State<NewPost> {
               ),
               Text(
                 "Poll",
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: TextStyle(color: Colors.black, fontSize: 14),
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 5, 10, 0),
+            padding: const EdgeInsets.fromLTRB(15, 5, 10, 0),
             child: Text(
               "Heading",
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontSize: 15,
-                color: Colors.white,
               ),
             ),
           ),
@@ -102,7 +72,7 @@ class _NewPostState extends State<NewPost> {
             height: 10,
           ),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(15),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(2)),
             child: TextField(
               minLines: 1,
@@ -124,18 +94,22 @@ class _NewPostState extends State<NewPost> {
             height: 20,
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 5, 10, 0),
+            padding: const EdgeInsets.fromLTRB(15, 5, 10, 0),
             child: Text(
               "Content",
               textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 15, color: Colors.white),
+              style: TextStyle(
+                fontSize: 15,
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 RaisedButton.icon(
+                    padding: EdgeInsets.all(8),
                     color: Colors.black,
                     onPressed: () async {
                       imageIsSelected();
@@ -151,6 +125,7 @@ class _NewPostState extends State<NewPost> {
                     )),
                 RaisedButton.icon(
                     onPressed: null,
+                    padding: EdgeInsets.all(8),
                     icon: Icon(
                       Icons.text_fields,
                       color: Colors.white,
@@ -163,7 +138,7 @@ class _NewPostState extends State<NewPost> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(15),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(1)),
             child: TextField(
               maxLines: 4,
@@ -217,7 +192,6 @@ class _NewPostState extends State<NewPost> {
               ),
               Text(
                 "Text",
-                style: TextStyle(color: Colors.white),
               ),
               new Radio(
                 value: 2,
@@ -228,7 +202,6 @@ class _NewPostState extends State<NewPost> {
               ),
               Text(
                 "Poll",
-                style: TextStyle(color: Colors.white),
               ),
             ],
           ),
@@ -237,14 +210,14 @@ class _NewPostState extends State<NewPost> {
             child: Text(
               "Poll Question?",
               textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 14, color: Colors.white),
+              style: TextStyle(fontSize: 14),
             ),
           ),
           SizedBox(
             height: 10,
           ),
           Container(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(10),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(2)),
             child: TextField(
               minLines: 1,
@@ -278,50 +251,52 @@ class _NewPostState extends State<NewPost> {
     return Form(
       key: _formKey,
       child: Padding(
-        padding: const EdgeInsets.all(2.0),
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8, 10, 10, 10),
-                child: Text(
-                  "Options",
-                  style: TextStyle(color: Colors.white),
-                  textAlign: TextAlign.left,
+        padding: const EdgeInsets.fromLTRB(8, 5, 5, 0),
+        child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-              ..._getOptions(),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                child: Center(
-                    child: InkWell(
-                  onTap: () {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      print("yes");
-                    }
-                  },
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 6),
-                    height: 40,
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.blue,
-                    ),
-                    child: Text(
-                      "Post",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 15),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 0, 0, 10),
+                  child: Text(
+                    "Options",
+                    style: TextStyle(fontSize: 14),
+                    textAlign: TextAlign.left,
                   ),
-                )),
-              ),
-            ],
+                ),
+                ..._getOptions(),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                  child: Center(
+                      child: InkWell(
+                    onTap: () {
+                      if (_formKey.currentState.validate()) {
+                        _formKey.currentState.save();
+                        print("yes");
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 6),
+                      height: 40,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.blue,
+                      ),
+                      child: Text(
+                        "Post",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                    ),
+                  )),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -373,28 +348,40 @@ class _NewPostState extends State<NewPost> {
     );
   }
 
+  int selectedRadio;
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      selectedRadio = 1;
+      _nameController = TextEditingController();
+    });
+  }
+
+  setSelectedRadio(int value) {
+    setState(() {
+      selectedRadio = value;
+    });
+  }
+
+  imageIsSelected() {
+    setState(() {
+      imageSelected = !imageSelected;
+    });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: SizedBox(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(13),
-                border: Border.all(
-                  color: Colors.white,
-                  width: 0.3,
-                ),
-              ),
-              child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 40, 8, 0),
-                  child: _buildChild()),
-            ),
-          ),
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [_buildChild()],
       ),
     );
   }
